@@ -1,0 +1,76 @@
+<%= form_for @shoe, :html => { :class => "form-horizontal shoe" } do |f| %>
+
+  <% if @shoe.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@shoe.errors.count, "error") %> prohibited this shoe from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @shoe.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label "Модел", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:title) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Линк към снимка", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :photo, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:photo) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Оригинален линк", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :link, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:link) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Цена", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :price, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:price) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Вид", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select :gender, options_for_select(['мъжки','женски']), {}, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:gender) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Размери", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :sizes_list, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:sizes) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Цветове", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :colors_list, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:colors) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                shoes_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

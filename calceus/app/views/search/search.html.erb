@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>Търсене на обувки</h1>
+</div>
+
+<%= form_for search_path, method: :get do |f| %>
+  <p>
+    <div class="col-lg-10">
+      <%= text_field_tag :q, params[:q], :class => 'form-control' %>
+    </div>
+    <%= submit_tag "Търси", name: nil, :class => 'btn btn-primary' %>
+  </p>
+<% end %>
+
+<div class="page-header">
+  <h1>Резултати</h1>
+  <% unless @shoes.empty? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Модел</th>
+          <th>Снимка</th>
+          <th>Цена</th>
+          <th>Вид</th>
+          <th>Размери</th>
+          <th>Цветове</th>
+          <th>Дистрибутор</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shoes.each do |shoe| %>
+          <tr>
+            <td><%= link_to shoe.title.mb_chars.upcase.to_s, controller: "shoes", action: "show", id: shoe._id %></td>
+            <td><%= image_tag shoe.photo %></td>
+            <td><%= shoe.price %></td>
+            <td><%= shoe.gender %></td>
+            <td><%= shoe.sizes.join(', ') %></td>
+            <td><%= shoe.colors.join(', ').mb_chars.downcase.to_s %></td>
+            <td><%= link_to 'Купи', shoe.link %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Не са намерени резултати.</p>
+  <% end %>
+</div>

@@ -1,0 +1,65 @@
+<%- model_class = Shoe -%>
+<div class="page-header">
+  <h1>Обувки</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>Модел:</strong></dt>
+  <dd><%= @shoe.title.mb_chars.upcase.to_s %></dd>
+  <dt><strong>Снимка:</strong></dt>
+  <dd><%= image_tag @shoe.photo %></dd>
+  <dt><strong>Цена:</strong></dt>
+  <dd><%= @shoe.price %></dd>
+  <dt><strong>Вид:</strong></dt>
+  <dd><%= @shoe.gender %></dd>
+  <dt><strong>Размери:</strong></dt>
+  <dd><%= @shoe.sizes_list %></dd>
+  <dt><strong>Цветове:</strong></dt>
+  <dd><%= @shoe.colors_list.mb_chars.downcase.to_s %></dd>
+  <dt><strong>Дистрибутор:</strong></dt>
+  <dd><%= link_to 'Купи', @shoe.link %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              shoes_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_shoe_path(@shoe), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              shoe_path(@shoe),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+
+<div class="page-header">
+  <h1>Подобни</h1>
+  <% unless @similar_shoes.empty? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Модел</th>
+          <th>Снимка</th>
+          <th>Цена</th>
+          <th>Вид</th>
+          <th>Размери</th>
+          <th>Цветове</th>
+          <th>Дистрибутор</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @similar_shoes.each do |shoe| %>
+          <tr>
+            <td><%= link_to shoe.title.mb_chars.upcase.to_s, shoe_path(shoe.id.to_s) %></td>
+            <td><%= image_tag shoe.photo %></td>
+            <td><%= shoe.price %></td>
+            <td><%= shoe.gender %></td>
+            <td><%= shoe.sizes.join(', ') %></td>
+            <td><%= shoe.colors.join(', ').mb_chars.downcase.to_s %></td>
+            <td><%= link_to 'Купи', shoe.link %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Няма подобни обувки.</p>
+  <% end %>
+</div>
